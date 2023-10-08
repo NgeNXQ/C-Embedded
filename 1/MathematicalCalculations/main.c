@@ -1,47 +1,51 @@
+#define _USE_MATH_DEFINES
+
 #include <stdlib.h>
+#include <limits.h>
 #include <float.h>
 #include <stdio.h>
 #include <math.h>
 
-//double readDouble(const char*, double, double);
+double readDouble(const char*);
 
 int main()
 {
-    // check for overflow
+    double a = readDouble("Enter a double value: ");
 
+    double z1 = 2 * pow(sin(3 * M_PI - 2 * a), 2) * pow(cos(5 * M_PI + 2 * a), 2);
+    double z2 = 1.0 / 4 - 1.0 / 4 * sin(5.0 / 2 * M_PI - 8 * a);
 
-
-    //double a = readDouble("Enter a double value: ");
-
-    //double z1 = cos(a) + sin(a) + cos(3 * a) + sin(3 * a);
-    //double z2 = 2 * sqrt(2) * cos(a) * sin(M_PI / 4.0 + 2 * a);
-
-    //printf("Z1 = %lf\n", z1);
-    //printf("Z2 = %lf\n", z2);
+    printf("Z1 = %lf\n", z1);
+    printf("Z2 = %lf\n", z2);
 
     return 0;
 }
 
 double readDouble(const char* message)
 {
-    double value;
+    double number;
+    long double tempNumber;
     char inputBuffer[255];
 
-    while (1) 
+    do
     {
         printf(message);
 
-        if (fgets(inputBuffer, sizeof(inputBuffer), stdin) == NULL)
+        if (fgets(inputBuffer, sizeof(inputBuffer), stdin) != NULL)
         {
-            printf("Enter a valid input.\n");
-            continue;
+            if (sscanf_s(inputBuffer, "%lf", &tempNumber) == 1)
+            {
+                if (tempNumber >= -DBL_MAX && tempNumber <= DBL_MAX)
+                {
+                    number = (double)tempNumber;
+                    break;
+                }
+            }
         }
 
-        if (sscanf_s(inputBuffer, "%f", &value) == 1)
-            return value;
-        else 
-            printf("Invalid input. Please enter a valid double value.\n");
-    }
+        printf("Invalid input. Please enter a valid double value.\n");
 
-    return value;
+    } while (1);
+
+    return number;
 }
