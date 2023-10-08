@@ -1,10 +1,9 @@
 #define _USE_MATH_DEFINES
 
-#include <stdlib.h>
-#include <limits.h>
-#include <float.h>
 #include <stdio.h>
 #include <math.h>
+#include <float.h>
+#include <limits.h>
 
 double readDouble(const char*);
 
@@ -25,7 +24,7 @@ double readDouble(const char* message)
 {
     double number;
     long double tempNumber;
-    char inputBuffer[255];
+    char inputBuffer[UCHAR_MAX];
 
     do
     {
