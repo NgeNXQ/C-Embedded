@@ -24,7 +24,7 @@ int main()
 
 char* read_string(const char* const message)
 {
-    char* input_buffer = malloc(UCHAR_MAX);
+    char* input_buffer = (char*)malloc(UCHAR_MAX);
 
     if (input_buffer == NULL)
     {
@@ -52,7 +52,7 @@ char* get_characters_in_range(const char* const string, const char min_code, con
 {
     int index = 0;
     int length = strlen(string);
-    char* result = malloc(length + 1);
+    char* result = (char*)malloc(length + 1);
 
     if (result == NULL)
     {
