@@ -5,8 +5,10 @@ char* reverseString(const char*);
 
 int main()
 {
-    char* string = readString("Enter a string: ");
-    printf(string);
+    //char* string = readString("Enter a string: ");
+    //printf(string);
+    long double l = 15.5;
+    printf("%d", sizeof(l));
 
     //printf(reverseString());
     return 0;
