@@ -2,16 +2,16 @@
 #include <limits.h>
 #include <stdlib.h>
 
-char* readString(const char* const);
-char* getCharactersInRange(const char* const, const char, const char);
+char* read_string(const char* const);
+char* get_characters_in_range(const char* const, const char, const char);
 
 int main()
 {
     const char LOWER_BOUND = 65;
     const char UPPER_BOUND = 90;
 
-    char* string = readString("Enter a string: ");
-    char* result = getCharactersInRange(string, LOWER_BOUND, UPPER_BOUND);
+    char* string = read_string("Enter a string: ");
+    char* result = get_characters_in_range(string, LOWER_BOUND, UPPER_BOUND);
     
     for (int i = 0; *(result + i) != '\0'; ++i)
         printf("%c: %3d\n", *(result + i), *(result + i));
@@ -22,11 +22,11 @@ int main()
     return 0;
 }
 
-char* readString(const char* const message)
+char* read_string(const char* const message)
 {
-    char* inputBuffer = malloc(UCHAR_MAX);
+    char* input_buffer = malloc(UCHAR_MAX);
 
-    if (inputBuffer == NULL)
+    if (input_buffer == NULL)
     {
         perror("Failed to allocate memory.");
         return NULL;
@@ -36,19 +36,19 @@ char* readString(const char* const message)
     {
         printf("%s", message);
 
-        if (fgets(inputBuffer, sizeof(inputBuffer), stdin) != NULL)
+        if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL)
             break;
 
         printf("Invalid input. Please enter a valid string value.\n");
 
     } while (1);
 
-    *(inputBuffer + strlen(inputBuffer) - 1) = '\0';
+    *(input_buffer + strlen(input_buffer) - 1) = '\0';
 
-    return inputBuffer;
+    return input_buffer;
 }
 
-char* getCharactersInRange(const char* const string, const char minCode, const char maxCode)
+char* get_characters_in_range(const char* const string, const char min_code, const char max_code)
 {
     int index = 0;
     int length = strlen(string);
@@ -62,7 +62,7 @@ char* getCharactersInRange(const char* const string, const char minCode, const c
 
     for (int i = 0; i < length; ++i)
     {
-        if (*(string + i) >= minCode && *(string + i) <= maxCode)
+        if (*(string + i) >= min_code && *(string + i) <= max_code)
             *(result + index++) = *(string + i);
     }
 

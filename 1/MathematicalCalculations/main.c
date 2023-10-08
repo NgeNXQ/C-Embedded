@@ -6,11 +6,11 @@
 #include <limits.h>
 #include <stdlib.h>
 
-double readDouble(const char* const);
+double read_double(const char* const);
 
 int main()
 {
-    double a = readDouble("Enter a double value: ");
+    double a = read_double("Enter a double value: ");
 
     double z1 = 2 * pow(sin(3 * M_PI - 2 * a), 2) * pow(cos(5 * M_PI + 2 * a), 2);
     double z2 = 1.0 / 4 - 1.0 / 4 * sin(5.0 / 2 * M_PI - 8 * a);
@@ -21,26 +21,26 @@ int main()
     return 0;
 }
 
-double readDouble(const char* const message)
+double read_double(const char* const message)
 {
     double number;
-    long double tempNumber;
-    char inputBuffer[UCHAR_MAX];
-    char* pEnd;
+    long double temp_number;
+    char input_buffer[UCHAR_MAX];
+    char* p_end;
 
     do
     {
         printf(message);
 
-        if (fgets(inputBuffer, sizeof(inputBuffer), stdin) != NULL)
+        if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL)
         {
-            tempNumber = strtod(inputBuffer, &pEnd);
+            temp_number = strtod(input_buffer, &p_end);
 
-            if (*(pEnd) == '\n' || *(pEnd) == '\0')
+            if (*(p_end) == '\n' || *(p_end) == '\0')
             {
-                if (tempNumber >= -DBL_MAX && tempNumber <= DBL_MAX)
+                if (temp_number >= -DBL_MAX && temp_number <= DBL_MAX)
                 {
-                    number = (double)tempNumber;
+                    number = (double)temp_number;
                     break;
                 }
             }
