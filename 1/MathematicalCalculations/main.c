@@ -4,8 +4,9 @@
 #include <math.h>
 #include <float.h>
 #include <limits.h>
+#include <stdlib.h>
 
-double readDouble(const char*);
+double readDouble(const char* const);
 
 int main()
 {
@@ -20,11 +21,12 @@ int main()
     return 0;
 }
 
-double readDouble(const char* message)
+double readDouble(const char* const message)
 {
     double number;
     long double tempNumber;
     char inputBuffer[UCHAR_MAX];
+    char* pEnd;
 
     do
     {
@@ -32,7 +34,9 @@ double readDouble(const char* message)
 
         if (fgets(inputBuffer, sizeof(inputBuffer), stdin) != NULL)
         {
-            if (sscanf_s(inputBuffer, "%lf", &tempNumber) == 1)
+            tempNumber = strtod(inputBuffer, &pEnd);
+
+            if (*(pEnd) == '\n' || *(pEnd) == '\0')
             {
                 if (tempNumber >= -DBL_MAX && tempNumber <= DBL_MAX)
                 {
