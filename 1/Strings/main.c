@@ -1,50 +1,72 @@
 #include <stdio.h>
+#include <limits.h>
+#include <stdlib.h>
 
-char* readString(const char*);
-char* reverseString(const char*);
+char* readString(const char* const);
+char* getCharactersInRange(const char* const, const char, const char);
 
 int main()
 {
-    //char* string = readString("Enter a string: ");
-    //printf(string);
-    long double l = 15.5;
-    printf("%d", sizeof(l));
+    const char LOWER_BOUND = 65;
+    const char UPPER_BOUND = 90;
 
-    //printf(reverseString());
+    char* string = readString("Enter a string: ");
+    char* result = getCharactersInRange(string, LOWER_BOUND, UPPER_BOUND);
+    
+    for (int i = 0; *(result + i) != '\0'; ++i)
+        printf("%c: %3d\n", *(result + i), *(result + i));
+
+    free(string);
+    free(result);
+
     return 0;
 }
 
-char* readString(const char* message)
+char* readString(const char* const message)
 {
-    char* string = (char*)malloc(101 * sizeof(char));
+    char* inputBuffer = malloc(UCHAR_MAX);
 
-    if (string == NULL)
+    if (inputBuffer == NULL)
     {
-        perror("Memory allocation failed");
+        perror("Failed to allocate memory.");
         return NULL;
     }
 
-    printf("%s", message);
-    scanf_s("%s", string);
+    do
+    {
+        printf("%s", message);
 
-    return string;
+        if (fgets(inputBuffer, sizeof(inputBuffer), stdin) != NULL)
+            break;
+
+        printf("Invalid input. Please enter a valid string value.\n");
+
+    } while (1);
+
+    *(inputBuffer + strlen(inputBuffer) - 1) = '\0';
+
+    return inputBuffer;
 }
 
-char* reverseString(const char* string)
+char* getCharactersInRange(const char* const string, const char minCode, const char maxCode)
 {
+    int index = 0;
     int length = strlen(string);
-    char* newString = (char*)malloc((length + 1) * sizeof(char));
+    char* result = malloc(length + 1);
 
-    if (newString == NULL) 
+    if (result == NULL)
     {
-        perror("Memory allocation failed");
+        perror("Failed to allocate memory.");
         return NULL;
     }
 
-    for (int i = length - 1, j = 0; i >= 0; i--, j++) 
-        newString[j] = string[i];
+    for (int i = 0; i < length; ++i)
+    {
+        if (*(string + i) >= minCode && *(string + i) <= maxCode)
+            *(result + index++) = *(string + i);
+    }
 
-    newString[length] = '\0';
+    *(result + index) = '\0';
 
-    return newString;
+    return result;
 }
