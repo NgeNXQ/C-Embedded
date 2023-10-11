@@ -3,9 +3,7 @@
 #include "node.h"
 #include "linked_list.h"
 
-#define DEBUG
-
-struct linked_list* initialize_linked_list()
+struct linked_list* linked_list_initialize()
 {
 	struct linked_list* const linked_list = (struct linked_list*)malloc(sizeof(struct linked_list));
 
@@ -21,13 +19,8 @@ struct linked_list* initialize_linked_list()
 	return linked_list;
 }
 
-void print_linked_list(const struct linked_list* const linked_list)
+void linked_list_print(const struct linked_list* const linked_list)
 {
-
-#ifdef DEBUG
-	system("cls");
-#endif // !DEBUG
-
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");
@@ -38,13 +31,13 @@ void print_linked_list(const struct linked_list* const linked_list)
 
 	while (current != NULL)
 	{
-		print_node(current);
+		node_print(current);
 		printf("\n");
 		current = current->next;
 	}
 }
 
-struct node* add_first(struct linked_list* const linked_list, const void* const data)
+struct node* linked_list_add_first(struct linked_list* const linked_list, const void* const data)
 {
 	if (linked_list == NULL)
 	{
@@ -58,7 +51,10 @@ struct node* add_first(struct linked_list* const linked_list, const void* const 
 		return NULL;
 	}
 
-	struct node* const new_node = create_node(data);
+	struct node* const new_node = node_initialize(data);
+
+	if (new_node == NULL)
+		return;
 
 	if (linked_list->head == NULL)
 	{
@@ -67,7 +63,7 @@ struct node* add_first(struct linked_list* const linked_list, const void* const 
 	else
 	{
 		new_node->next = linked_list->head;
-		linked_list->head->prev = data;
+		linked_list->head->prev = new_node;
 		linked_list->head = new_node;
 	}
 
@@ -75,7 +71,7 @@ struct node* add_first(struct linked_list* const linked_list, const void* const 
 	return new_node;
 }
 
-struct node* add_last(struct linked_list* const linked_list, const void* const data)
+struct node* linked_list_add_last(struct linked_list* const linked_list, const void* const data)
 {
 	if (linked_list == NULL)
 	{
@@ -89,9 +85,12 @@ struct node* add_last(struct linked_list* const linked_list, const void* const d
 		return NULL;
 	}
 
-	struct node* const new_node = create_node(data);
+	struct node* const new_node = node_initialize(data);
 
-	if (linked_list->head == NULL)
+	if (new_node == NULL)
+		return;
+
+	if (linked_list->tail == NULL)
 	{
 		linked_list->head = linked_list->tail = new_node;
 	}
@@ -106,7 +105,7 @@ struct node* add_last(struct linked_list* const linked_list, const void* const d
 	return new_node;
 }
 
-struct node* remove_last(struct linked_list* const linked_list)
+void linked_list_remove_last(struct linked_list* const linked_list)
 {
 	if (linked_list == NULL)
 	{
@@ -114,7 +113,13 @@ struct node* remove_last(struct linked_list* const linked_list)
 		return NULL;
 	}
 
-	const struct node* removed_node;
+	if (linked_list->count == 0)
+	{
+		printf("linked_list is empty.");
+		return NULL;
+	}
+
+	const struct node* removed_node = NULL;
 
 	if (linked_list->count == 1)
 	{
@@ -128,11 +133,12 @@ struct node* remove_last(struct linked_list* const linked_list)
 		linked_list->tail->next = NULL;
 	}
 
+	free(removed_node->data);
+	free(removed_node);
 	--linked_list->count;
-	return removed_node;
 }
 
-struct node* remove_first(struct linked_list* const linked_list)
+void linked_list_remove_first(struct linked_list* const linked_list)
 {
 	if (linked_list == NULL)
 	{
@@ -140,7 +146,13 @@ struct node* remove_first(struct linked_list* const linked_list)
 		return NULL;
 	}
 
-	const struct node* removed_node;
+	if (linked_list->count == 0)
+	{
+		printf("linked_list is empty.");
+		return NULL;
+	}
+
+	const struct node* removed_node = NULL;
 
 	if (linked_list->count == 1)
 	{
@@ -154,11 +166,12 @@ struct node* remove_first(struct linked_list* const linked_list)
 		linked_list->head->prev = NULL;
 	}
 
+	free(removed_node->data);
+	free(removed_node);
 	--linked_list->count;
-	return removed_node;
 }
 
-void remove_node(struct linked_list* const linked_list, const struct node* const node)
+void linked_list_remove_node(struct linked_list* const linked_list, const struct node* const node)
 {
 	if (linked_list == NULL)
 	{
@@ -168,7 +181,7 @@ void remove_node(struct linked_list* const linked_list, const struct node* const
 
 	if (node == NULL)
 	{
-		printf("linked_list is null.");
+		printf("node is null.");
 		return;
 	}
 
@@ -193,12 +206,13 @@ void remove_node(struct linked_list* const linked_list, const struct node* const
 	}
 	else
 	{
-		if (node->next == NULL || node->prev == NULL)
+		if (node->next == NULL && node->prev == NULL)
 		{
 			printf("Selected node is not from specified linked_list.");
 			return;
 		}
 
+		removed_node = node;
 		node->prev->next = node->next;
 		node->next->prev = node->prev;
 	}
@@ -208,7 +222,7 @@ void remove_node(struct linked_list* const linked_list, const struct node* const
 	--linked_list->count;
 }
 
-struct node* add_after(struct linked_list* const linked_list, struct node* const node, const void* const data)
+struct node* linked_list_add_after(struct linked_list* const linked_list, struct node* const node, const void* const data)
 {
 	if (linked_list == NULL)
 	{
@@ -234,7 +248,10 @@ struct node* add_after(struct linked_list* const linked_list, struct node* const
 		return NULL;
 	}
 
-	struct node* const new_node = create_node(data);
+	struct node* const new_node = node_initialize(data);
+
+	if (new_node == NULL)
+		return;
 
 	if (node == linked_list->tail)
 	{
@@ -244,17 +261,17 @@ struct node* add_after(struct linked_list* const linked_list, struct node* const
 	}
 	else
 	{
-		node->next->prev = new_node;
-		node->next = new_node;
 		new_node->next = node->next;
 		new_node->prev = node;
+		node->next->prev = new_node;
+		node->next = new_node;
 	}
 
 	++linked_list->count;
 	return new_node;
 }
 
-struct node* add_before(struct linked_list* const linked_list, struct node* const node, const void* const data)
+struct node* linked_list_add_before(struct linked_list* const linked_list, struct node* const node, const void* const data)
 {
 	if (linked_list == NULL)
 	{
@@ -280,7 +297,10 @@ struct node* add_before(struct linked_list* const linked_list, struct node* cons
 		return NULL;
 	}
 
-	struct node* const new_node = create_node(data);
+	struct node* const new_node = node_initialize(data);
+
+	if (new_node == NULL)
+		return;
 
 	if (node == linked_list->head)
 	{
@@ -300,7 +320,7 @@ struct node* add_before(struct linked_list* const linked_list, struct node* cons
 	return new_node;
 }
 
-struct node* search(const struct linked_list* const linked_list, const void* const data)
+struct node* linked_list_search(const struct linked_list* const linked_list, const void* const data)
 {
 	if (linked_list == NULL)
 	{
@@ -327,8 +347,10 @@ struct node* search(const struct linked_list* const linked_list, const void* con
 	return NULL;
 }
 
-void free_linked_list(struct linked_list* const linked_list)
+void linked_list_free(struct linked_list* const linked_list)
 {
+	// Independent memory deallocation
+
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");

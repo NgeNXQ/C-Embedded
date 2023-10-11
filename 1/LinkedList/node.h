@@ -8,7 +8,7 @@ struct node
     struct node* prev;
 };
 
-struct node* create_node(const void* const data);
-void print_node(const struct node* const node);
+struct node* node_initialize(const void* const data);
+void node_print(const struct node* const node);
 
 #endif // NODE_H

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "book.h"
 
-struct book* create_book(const char* const title, const float price, const int number_of_pages, const char* const language, const float weight, const int publication_year)
+struct book* book_initialize(const char* const title, const float price, const int number_of_pages, const char* const language, const float weight, const int publication_year)
 {
     struct book* new_book = (struct book*)malloc(sizeof(struct book));
 
@@ -34,7 +34,7 @@ struct book* create_book(const char* const title, const float price, const int n
     return new_book;
 }
 
-void print_book(const struct book* const book)
+void book_print(const struct book* const book)
 {
     if (book == NULL)
     {

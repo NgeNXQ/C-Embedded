@@ -3,9 +3,9 @@
 #include "node.h"
 #include "book.h"
 
-struct node* create_node(const void* const data)
+struct node* node_initialize(const void* const data)
 {
-    struct node* new_node = (struct node*)malloc(sizeof(struct node));
+    struct node* const new_node = (struct node*)malloc(sizeof(struct node));
 
     if (new_node == NULL)
     {
@@ -13,13 +13,13 @@ struct node* create_node(const void* const data)
         return NULL;
     }
 
-    new_node->data = data;
+    new_node->data = (void*)data;
     new_node->next = NULL;
     new_node->prev = NULL;
     return new_node;
 }
 
-void print_node(const struct node* const node)
+void node_print(const struct node* const node)
 {
     if (node == NULL)
     {
@@ -27,5 +27,5 @@ void print_node(const struct node* const node)
         return;
     }
 
-    print_book(node->data);
+    book_print(node->data);
 }
