@@ -105,18 +105,18 @@ struct node* linked_list_add_last(struct linked_list* const linked_list, const v
 	return new_node;
 }
 
-void linked_list_remove_last(struct linked_list* const linked_list)
+int linked_list_remove_last(struct linked_list* const linked_list)
 {
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");
-		return NULL;
+		return -1;
 	}
 
 	if (linked_list->count == 0)
 	{
 		printf("linked_list is empty.");
-		return NULL;
+		return -1;
 	}
 
 	const struct node* removed_node = NULL;
@@ -136,20 +136,21 @@ void linked_list_remove_last(struct linked_list* const linked_list)
 	free(removed_node->data);
 	free(removed_node);
 	--linked_list->count;
+	return 0;
 }
 
-void linked_list_remove_first(struct linked_list* const linked_list)
+int linked_list_remove_first(struct linked_list* const linked_list)
 {
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");
-		return NULL;
+		return -1;
 	}
 
 	if (linked_list->count == 0)
 	{
 		printf("linked_list is empty.");
-		return NULL;
+		return -1;
 	}
 
 	const struct node* removed_node = NULL;
@@ -169,20 +170,21 @@ void linked_list_remove_first(struct linked_list* const linked_list)
 	free(removed_node->data);
 	free(removed_node);
 	--linked_list->count;
+	return 0;
 }
 
-void linked_list_remove_node(struct linked_list* const linked_list, const struct node* const node)
+int linked_list_remove_node(struct linked_list* const linked_list, const struct node* const node)
 {
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");
-		return;
+		return -1;
 	}
 
 	if (node == NULL)
 	{
 		printf("node is null.");
-		return;
+		return -1;
 	}
 
 	const struct node* removed_node = NULL;
@@ -209,7 +211,7 @@ void linked_list_remove_node(struct linked_list* const linked_list, const struct
 		if (node->next == NULL && node->prev == NULL)
 		{
 			printf("Selected node is not from specified linked_list.");
-			return;
+			return -1;
 		}
 
 		removed_node = node;
@@ -220,6 +222,7 @@ void linked_list_remove_node(struct linked_list* const linked_list, const struct
 	free(removed_node->data);
 	free(removed_node);
 	--linked_list->count;
+	return 0;
 }
 
 struct node* linked_list_add_after(struct linked_list* const linked_list, struct node* const node, const void* const data)

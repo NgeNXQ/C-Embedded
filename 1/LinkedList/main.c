@@ -15,6 +15,16 @@ int main()
 
     struct linked_list* const books = linked_list_initialize();
     
+    linked_list_add_last(books, book1);
+    linked_list_add_last(books, book2);
+    linked_list_add_last(books, book3);
+    linked_list_add_last(books, book4);
+    linked_list_add_last(books, book5);
+    linked_list_add_last(books, book6);
+    linked_list_add_last(books, book7);
+
+    linked_list_print(books);
+
     linked_list_free(books);
 
     return 0;
