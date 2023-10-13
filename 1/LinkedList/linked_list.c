@@ -352,8 +352,6 @@ struct node* linked_list_search(const struct linked_list* const linked_list, con
 
 void linked_list_free(struct linked_list* const linked_list)
 {
-	// Independent memory deallocation
-
 	if (linked_list == NULL)
 	{
 		printf("linked_list is null.");

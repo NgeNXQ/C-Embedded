@@ -17,11 +17,17 @@ int main()
     
     linked_list_add_last(books, book1);
     linked_list_add_last(books, book2);
-    linked_list_add_last(books, book3);
-    linked_list_add_last(books, book4);
-    linked_list_add_last(books, book5);
+    const struct node* node5 = linked_list_add_last(books, book4);
     linked_list_add_last(books, book6);
     linked_list_add_last(books, book7);
+
+    printf("Linked list:\n\n");
+    linked_list_print(books);
+
+    linked_list_add_after(books, node5, book5);
+    linked_list_add_before(books, node5, book3);
+
+    printf("Updated Linked list:\n\n");
 
     linked_list_print(books);
 
