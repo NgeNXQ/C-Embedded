@@ -10,8 +10,8 @@ int main()
     const char LOWER_BOUND = 65;
     const char UPPER_BOUND = 90;
 
-    char* string = read_string("Enter a string: ");
-    char* result = get_characters_in_range(string, LOWER_BOUND, UPPER_BOUND);
+    const char* string = read_string("Enter a string: ");
+    const char* result = get_characters_in_range(string, LOWER_BOUND, UPPER_BOUND);
     
     for (int i = 0; *(result + i) != '\0'; ++i)
         printf("%c: %3d\n", *(result + i), *(result + i));
@@ -29,7 +29,7 @@ char* read_string(const char* const message)
     if (input_buffer == NULL)
     {
         perror("Failed to allocate memory.");
-        return NULL;
+        exit(1);
     }
 
     do
@@ -57,7 +57,7 @@ char* get_characters_in_range(const char* const string, const char min_code, con
     if (result == NULL)
     {
         perror("Failed to allocate memory.");
-        return NULL;
+        exit(1);
     }
 
     for (int i = 0; i < length; ++i)
