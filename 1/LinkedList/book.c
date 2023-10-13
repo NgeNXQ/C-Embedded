@@ -9,7 +9,7 @@ struct book* book_initialize(const char* const title, const float price, const i
     if (new_book == NULL) 
     {
         perror("Memory allocation failed.");
-        return NULL;
+        exit(-1);
     }
 
     new_book->title = (char*)malloc(strlen(title) + 1);
@@ -21,7 +21,7 @@ struct book* book_initialize(const char* const title, const float price, const i
         free(new_book->title);
         free(new_book->language);
         free(new_book);
-        return NULL;
+        exit(-1);
     }
 
     strcpy(new_book->title, title);

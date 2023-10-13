@@ -10,7 +10,7 @@ struct node* node_initialize(const void* const data)
     if (new_node == NULL)
     {
         perror("Memory allocation failed");
-        return NULL;
+        exit(-1);
     }
 
     new_node->data = (void*)data;

@@ -10,7 +10,7 @@ struct linked_list* linked_list_initialize()
 	if (linked_list == NULL)
 	{
 		perror("Memory allocation failed");
-		return NULL;
+		exit(-1);
 	}
 
 	linked_list->head = NULL;
@@ -53,9 +53,6 @@ struct node* linked_list_add_first(struct linked_list* const linked_list, const 
 
 	struct node* const new_node = node_initialize(data);
 
-	if (new_node == NULL)
-		return;
-
 	if (linked_list->head == NULL)
 	{
 		linked_list->head = linked_list->tail = new_node;
@@ -86,9 +83,6 @@ struct node* linked_list_add_last(struct linked_list* const linked_list, const v
 	}
 
 	struct node* const new_node = node_initialize(data);
-
-	if (new_node == NULL)
-		return;
 
 	if (linked_list->tail == NULL)
 	{
@@ -253,9 +247,6 @@ struct node* linked_list_add_after(struct linked_list* const linked_list, struct
 
 	struct node* const new_node = node_initialize(data);
 
-	if (new_node == NULL)
-		return;
-
 	if (node == linked_list->tail)
 	{
 		linked_list->tail->next = new_node;
@@ -301,9 +292,6 @@ struct node* linked_list_add_before(struct linked_list* const linked_list, struc
 	}
 
 	struct node* const new_node = node_initialize(data);
-
-	if (new_node == NULL)
-		return;
 
 	if (node == linked_list->head)
 	{
