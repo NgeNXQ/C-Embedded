@@ -24,7 +24,7 @@ int main()
 
 char* read_string(const char* const message)
 {
-    char* input_buffer = (char*)malloc(UCHAR_MAX);
+    char* const input_buffer = (char*)malloc(UCHAR_MAX);
 
     if (input_buffer == NULL)
     {
@@ -36,7 +36,7 @@ char* read_string(const char* const message)
     {
         printf("%s", message);
 
-        if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL)
+        if (fgets(input_buffer, UCHAR_MAX, stdin) != NULL)
             break;
 
         printf("Invalid input. Please enter a valid string value.\n");
