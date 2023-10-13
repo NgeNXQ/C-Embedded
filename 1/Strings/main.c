@@ -57,7 +57,7 @@ char* get_characters_in_range(const char* const string, const char min_code, con
     if (result == NULL)
     {
         perror("Failed to allocate memory.");
-        exit(1);
+        exit(-1);
     }
 
     for (int i = 0; i < length; ++i)
