@@ -95,18 +95,12 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  const int FIRST_PHASE_DELAY = 500;
-	  const int SECOND_PHASE_DELAY = 100;
+	  const int DELAY = 500;
 
-	  light_diode(GPIO_PIN_12, FIRST_PHASE_DELAY);
-	  light_diode(GPIO_PIN_13, FIRST_PHASE_DELAY);
-	  light_diode(GPIO_PIN_14, FIRST_PHASE_DELAY);
-	  light_diode(GPIO_PIN_15, FIRST_PHASE_DELAY);
-
-	  light_diode(GPIO_PIN_12, SECOND_PHASE_DELAY);
-	  light_diode(GPIO_PIN_13, SECOND_PHASE_DELAY);
-	  light_diode(GPIO_PIN_14, SECOND_PHASE_DELAY);
-	  light_diode(GPIO_PIN_15, SECOND_PHASE_DELAY);
+	  light_diode(GPIO_PIN_12, DELAY);
+	  light_diode(GPIO_PIN_13, DELAY);
+	  light_diode(GPIO_PIN_14, DELAY);
+	  light_diode(GPIO_PIN_15, DELAY);
 
     /* USER CODE BEGIN 3 */
   }
