@@ -188,10 +188,13 @@ void light_diode(const unsigned short diode, const int delay)
 {
 	if (diode == GPIO_PIN_12 || diode == GPIO_PIN_13 || diode == GPIO_PIN_14 || diode == GPIO_PIN_15)
 	{
-		  HAL_GPIO_WritePin(GPIOD, diode, GPIO_PIN_SET);
-		  HAL_Delay(delay);
-		  HAL_GPIO_WritePin(GPIOD, diode, GPIO_PIN_RESET);
-		  HAL_Delay(delay);
+		if (delay > 0)
+		{
+			  HAL_GPIO_WritePin(GPIOD, diode, GPIO_PIN_SET);
+			  HAL_Delay(delay);
+			  HAL_GPIO_WritePin(GPIOD, diode, GPIO_PIN_RESET);
+			  HAL_Delay(delay);
+		}
 	}
 }
 
