@@ -100,7 +100,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  if (HAL_GPIO_ReadPin(GPIOA, BUTTON_USER) == GPIO_PIN_SET)
+	  if (HAL_GPIO_ReadPin(GPIOA, BUTTON_USER_Pin) == GPIO_PIN_SET)
 	  {
 		  light_led(leds[ledIndex], LED_SWITCH_DELAY);
 	  }
