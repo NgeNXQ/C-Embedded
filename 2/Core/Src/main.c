@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdint.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +49,7 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-void light_diode(const unsigned short, const int);
+void light_diode(const uint16_t, const uint32_t);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -64,7 +64,7 @@ void light_diode(const unsigned short, const int);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	const int DELAY = 500;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -95,14 +95,12 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  const int DELAY = 500;
+    /* USER CODE BEGIN 3 */
 
 	  light_diode(GPIO_PIN_12, DELAY);
 	  light_diode(GPIO_PIN_13, DELAY);
 	  light_diode(GPIO_PIN_14, DELAY);
 	  light_diode(GPIO_PIN_15, DELAY);
-
-    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -178,7 +176,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void light_diode(const unsigned short diode, const int delay)
+void light_diode(const unsigned short uint16_t, const int uint32_t)
 {
 	if (diode == GPIO_PIN_12 || diode == GPIO_PIN_13 || diode == GPIO_PIN_14 || diode == GPIO_PIN_15)
 	{
