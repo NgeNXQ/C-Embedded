@@ -58,6 +58,10 @@
 
 /* USER CODE BEGIN EV */
 
+extern const int LEDS_ARRAY_SIZE;
+
+extern unsigned int ledsIndex;
+
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -205,8 +209,18 @@ void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
 
+	ledsIndex %= LEDS_ARRAY_SIZE;
+	++ledsIndex;
+
+	const int BUTTON_DELAY = 10000;
+
+	unsigned int cnt = BUTTON_DELAY;
+
+	while (cnt--)
+		asm("nop");
+
   /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(BUTTON_USER_Pin);
+	HAL_GPIO_EXTI_IRQHandler(BUTTON_USER_Pin);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
 
   /* USER CODE END EXTI0_IRQn 1 */

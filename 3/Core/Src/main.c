@@ -21,10 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
 #include <stdint.h>
-
-#include "ledio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,12 +43,18 @@
 
 /* USER CODE BEGIN PV */
 
+const int LEDS_ARRAY_SIZE = 4;
+
+unsigned int ledsIndex = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
+
+void light_led(const uint16_t, const uint32_t);
 
 /* USER CODE END PFP */
 
@@ -67,9 +70,11 @@ static void MX_GPIO_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	const int LED_SWITCH_DELAY = 500;
 
-	int ledIndex = 0;
+	const int DELAY = 500;
+
+	uint16_t leds[] = { GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15 };
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -100,12 +105,10 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  if (HAL_GPIO_ReadPin(GPIOA, BUTTON_USER_Pin) == GPIO_PIN_SET)
-	  {
-		  light_led(leds[ledIndex], LED_SWITCH_DELAY);
-	  }
-
     /* USER CODE BEGIN 3 */
+
+	  if (HAL_GPIO_ReadPin(GPIOA, BUTTON_USER_Pin) == GPIO_PIN_SET)
+		  light_led(leds[ledsIndex], DELAY);
   }
   /* USER CODE END 3 */
 }
@@ -191,6 +194,19 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void light_led(const uint16_t led, const uint32_t delay)
+{
+	if (delay < 0)
+		return;
+
+	if (led != GPIO_PIN_12 && led != GPIO_PIN_13 && led != GPIO_PIN_14 && led != GPIO_PIN_15)
+		return;
+
+	HAL_GPIO_TogglePin(GPIOD, led);
+	HAL_Delay(delay);
+	HAL_GPIO_TogglePin(GPIOD, led);
+}
 
 /* USER CODE END 4 */
 
