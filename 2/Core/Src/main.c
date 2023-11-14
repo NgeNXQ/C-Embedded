@@ -176,7 +176,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void light_diode(const unsigned short uint16_t, const int uint32_t)
+void light_diode(const uint16_t diode, const uint32_t delay)
 {
 	if (diode == GPIO_PIN_12 || diode == GPIO_PIN_13 || diode == GPIO_PIN_14 || diode == GPIO_PIN_15)
 	{
