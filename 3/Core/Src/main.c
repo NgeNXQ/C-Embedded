@@ -107,8 +107,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  if (HAL_GPIO_ReadPin(GPIOA, BUTTON_USER_Pin) == GPIO_PIN_SET)
-		  light_led(leds[ledsIndex], DELAY);
+	  light_led(leds[ledsIndex], DELAY);
   }
   /* USER CODE END 3 */
 }

@@ -209,12 +209,10 @@ void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
 
-	ledsIndex %= LEDS_ARRAY_SIZE;
 	++ledsIndex;
+	ledsIndex %= LEDS_ARRAY_SIZE;
 
-	const int BUTTON_DELAY = 10000;
-
-	unsigned int cnt = BUTTON_DELAY;
+	unsigned int cnt = 600000;
 
 	while (cnt--)
 		asm("nop");
